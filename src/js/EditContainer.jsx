@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import StoryCard from './Container.jsx';
+import GridCard from './Container.jsx';
 import JSONSchemaForm from '../../lib/js/react-jsonschema-form';
 
-export default class EditStoryCard extends React.Component {
+export default class EditGridCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,7 +13,7 @@ export default class EditStoryCard extends React.Component {
         card_data: {},
         configs: {}
       },
-      mode: "16_col",
+      mode: "2_col",
       loading: true,
       publishing: false,
       uiSchemaJSON: {},
@@ -236,7 +236,7 @@ export default class EditStoryCard extends React.Component {
                 <div>
                   <div className="section-title-text">Fill the form</div>
                   <div className="ui label proto-pull-right">
-                    toStory
+                    toGrid
                   </div>
                 </div>
                 <JSONSchemaForm 
@@ -253,30 +253,6 @@ export default class EditStoryCard extends React.Component {
               <div className="twelve wide column proto-card-preview proto-share-card-div">
                 <div className="protograph-menu-container">
                   <div className="ui compact menu">
-                    <a className={`item ${this.state.mode === '16_col' ? 'active' : ''}`}
-                      data-mode='16_col'
-                      onClick={this.toggleMode}
-                    >
-                      16c-cover
-                    </a>
-                    <a className={`item ${this.state.mode === '7_col' ? 'active' : ''}`}
-                      data-mode='7_col'
-                      onClick={this.toggleMode}
-                    >
-                      7c
-                    </a>
-                    <a className={`item ${this.state.mode === '4_col' ? 'active' : ''}`}
-                      data-mode='4_col'
-                      onClick={this.toggleMode}
-                    >
-                      4c
-                    </a>
-                    <a className={`item ${this.state.mode === '3_col' ? 'active' : ''}`}
-                      data-mode='3_col'
-                      onClick={this.toggleMode}
-                    >
-                      3c
-                    </a>
                     <a className={`item ${this.state.mode === '2_col' ? 'active' : ''}`}
                       data-mode='2_col'
                       onClick={this.toggleMode}
@@ -286,7 +262,7 @@ export default class EditStoryCard extends React.Component {
                   </div>
                 </div>
                 <div className="protograph-app-holder">
-                  <StoryCard
+                  <GridCard
                     mode={this.state.mode}
                     dataJSON={this.state.dataJSON}
                     houseColors={this.props.houseColors}
