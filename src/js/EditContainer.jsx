@@ -19,7 +19,6 @@ export default class EditGridCard extends React.Component {
       optionalConfigSchemaJSON: undefined,
       refLinkDetails: undefined
     }
-    this.refLinkSourcesURL = window.ref_link_sources_url;
     this.toggleMode = this.toggleMode.bind(this);
   }
 
@@ -62,7 +61,7 @@ export default class EditGridCard extends React.Component {
 
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          dataJSON.data = formData;
+          dataJSON = formData;
           return {
             dataJSON: dataJSON
           }
@@ -217,12 +216,9 @@ export default class EditGridCard extends React.Component {
                   <GridCard
                     mode={this.state.mode}
                     dataJSON={this.state.dataJSON}
-                    houseColors={this.props.houseColors}
-                    domain={this.props.domain}
                     schemaJSON={this.state.schemaJSON}
                     optionalConfigJSON={this.state.optionalConfigJSON}
                     optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
-                    linkDetails={this.state.refLinkDetails}
                   />
                 </div>
               </div>
