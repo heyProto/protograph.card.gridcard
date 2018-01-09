@@ -9,11 +9,8 @@ export default class EditGridCard extends React.Component {
     super(props)
     this.state = {
       step: 1,
-      dataJSON: {
-        card_data: {},
-        configs: {}
-      },
-      mode: "2_col",
+      dataJSON: {},
+      mode: "col2",
       loading: true,
       publishing: false,
       uiSchemaJSON: {},
@@ -29,15 +26,13 @@ export default class EditGridCard extends React.Component {
   exportData() {
     let data = this.state.dataJSON;
     let getDataObj = {
-      step: this.state.step,
-      dataJSON: data.card_data,
+      dataJSON: data,
       schemaJSON: this.state.schemaJSON,
       uiSchemaJSON: this.state.uiSchemaJSON,
-      optionalConfigJSON: this.state.dataJSON.configs,
+      optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
-    console.log(getDataObj);
-    getDataObj["name"] = getDataObj.dataJSON.data.headline.substr(0,225); // Reduces the name to ensure the slug does not get too long
+    getDataObj["name"] = getDataObj.dataJSON.data.name.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 
@@ -46,10 +41,7 @@ export default class EditGridCard extends React.Component {
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(this.props.uiSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema) => {
           this.setState({
-            dataJSON: {
-              card_data: card.data,
-              configs: opt_config.data
-            },
+            dataJSON: card.data,
             schemaJSON: schema.data,
             uiSchemaJSON: uiSchema.data,
             optionalConfigJSON: opt_config.data,
@@ -67,10 +59,10 @@ export default class EditGridCard extends React.Component {
   onChangeHandler({formData}) {
     switch (this.state.step) {
       case 1:
-        
+
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          dataJSON.card_data = formData;
+          dataJSON.data = formData;
           return {
             dataJSON: dataJSON
           }
@@ -114,7 +106,7 @@ export default class EditGridCard extends React.Component {
   }
 
   renderSEO() {
-    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.name}</h3></blockquote>`
+    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.data.name}</h3></blockquote>`
     return seo_blockquote;
   }
 
@@ -134,10 +126,10 @@ export default class EditGridCard extends React.Component {
   renderFormData() {
     switch(this.state.step) {
       case 1:
-        return this.state.dataJSON.card_data;
+        return this.state.dataJSON;
         break;
       case 2:
-        return this.state.dataJSON.configs;
+        return this.state.optionalConfigJSON;
         break;
     }
   }
@@ -199,7 +191,7 @@ export default class EditGridCard extends React.Component {
                     toGrid
                   </div>
                 </div>
-                <JSONSchemaForm 
+                <JSONSchemaForm
                   uiSchema={this.state.uiSchemaJSON}
                   schema={this.renderSchemaJSON()}
                   onSubmit={((e) => this.onSubmitHandler(e))}
@@ -213,11 +205,11 @@ export default class EditGridCard extends React.Component {
               <div className="twelve wide column proto-card-preview proto-share-card-div">
                 <div className="protograph-menu-container">
                   <div className="ui compact menu">
-                    <a className={`item ${this.state.mode === '2_col' ? 'active' : ''}`}
-                      data-mode='2_col'
+                    <a className={`item ${this.state.mode === 'col2' ? 'active' : ''}`}
+                      data-mode='col2'
                       onClick={this.toggleMode}
                     >
-                      2c
+                      col2
                     </a>
                   </div>
                 </div>

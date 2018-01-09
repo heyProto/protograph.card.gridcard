@@ -7,10 +7,7 @@ export default class toGridCard extends React.Component {
     super(props)
     let stateVar = {
       fetchingData: true,
-      dataJSON: {
-        card_data: {},
-        configs: {}
-      },
+      dataJSON: {},
       schemaJSON: undefined,
       linkDetails: undefined,
       domain: undefined,
@@ -54,10 +51,7 @@ export default class toGridCard extends React.Component {
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
           this.setState({
             fetchingData: false,
-            dataJSON: {
-              card_data: card.data,
-              configs: opt_config.data
-            },
+            dataJSON: card.data,
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
@@ -67,7 +61,7 @@ export default class toGridCard extends React.Component {
   }
 
   exportData() {
-    return this.props.selector.getBoundingClientRect();
+    return document.getElementById('protograph_div').getBoundingClientRect();
   }
 
   renderCol2(){
@@ -77,12 +71,12 @@ export default class toGridCard extends React.Component {
       )
     }else{
       return(
-        <div className="col-2-grid-card">
+        <div id="protograph_div" className="col-2-grid-card">
           <div className="col-2-bgimage">
-            <img className="col-2-image" src={this.state.dataJSON.card_data.data.image_url}/>
+            <img className="col-2-image" src={this.state.dataJSON.data.image_url}/>
           </div>
           <div className="col-2-name">
-            {this.state.dataJSON.card_data.data.name}
+            {this.state.dataJSON.data.name}
           </div>
         </div>
       )
@@ -90,7 +84,7 @@ export default class toGridCard extends React.Component {
   }
   render() {
     switch(this.props.mode) {
-      case '2_col':
+      case 'col2':
         return this.renderCol2();
     }
   }

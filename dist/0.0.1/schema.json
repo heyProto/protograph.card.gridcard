@@ -1,27 +1,27 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#", 
-  "definitions": {}, 
-  "id": "http://example.com/example.json", 
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
   "properties": {
     "data": {
-      "id": "/properties/data", 
+      "id": "/properties/data",
       "properties": {
         "name": {
-          "title": "Name", 
+          "title": "Name",
           "type": "string"
         },
         "image_url":{
-          "title": "Image URL", 
+          "title": "Image URL",
           "type": "string",
           "format":"uri"
         }
-      }, 
+      },
       "title":"Card Data",
       "type": "object",
       "required": [
         "name","url"
       ]
     }
-  }, 
+  },
   "type": "object"
 }

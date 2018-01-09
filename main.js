@@ -18,7 +18,7 @@ ProtoGraph.Card.toGrid.prototype.getData = function (data) {
 }
 
 ProtoGraph.Card.toGrid.prototype.renderCol2= function (data) {
-  this.mode = '2_col';
+  this.mode = 'col2';
   ReactDOM.render(
     <GridCard
       dataURL={this.options.data_url}
