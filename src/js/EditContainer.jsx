@@ -43,41 +43,18 @@ export default class EditGridCard extends React.Component {
 
   componentDidMount() {
     if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(this.refLinkSourcesURL), axios.get(this.props.uiSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema, linkSources, uiSchema) => {
-          let formData = card.data;
-          let fav = undefined;
-          let str = formData.data.url;
-          let arr = str && str.split("/");
-          let name = undefined;
-          let dom = arr && (arr[2]);
-          linkSources.data.forEach((link)=>{
-            let arr2 = link.url && link.url.split("/");
-            let linkc = arr2 && (arr2[2]);
-            console.log(linkc, dom, '...');
-            if(linkc === dom){
-              fav = link.favicon_url;
-              name = link.name;
-            }
-          });
-          formData.data.faviconurl = fav;
-          formData.data.domainurl = dom;
-          formData.data.publishername = name;
-          console.log(formData);
+      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(this.props.uiSchemaURL)])
+        .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema) => {
           this.setState({
             dataJSON: {
-              card_data: formData,
+              card_data: card.data,
               configs: opt_config.data
             },
             schemaJSON: schema.data,
             uiSchemaJSON: uiSchema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data,
-            refLinkDetails:linkSources.data
+            optionalConfigSchemaJSON: opt_config_schema.data
           });
-          if (links.length) {
-            this.checkAndUpdateLinkInfo(links, stateVars.refLinkDetails);
-          }
         }))
         .catch((error) => {
           this.setState({
@@ -93,24 +70,7 @@ export default class EditGridCard extends React.Component {
         
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          let fav = undefined;
-          let str = formData.data.url;
-          let arr = str && str.split("/");
-          let name = undefined;
-          let dom = arr && (arr[2]);
-          this.state.refLinkDetails.forEach((link)=>{
-            let arr2 = link.url && link.url.split("/");
-            let linkc = arr2 && (arr2[2]);
-            if(linkc === dom){
-              fav = link.favicon_url;
-              name = link.name;
-            }
-          });
-          formData.data.faviconurl = fav;
-          formData.data.domainurl = dom;
-          formData.data.publishername = name;
           dataJSON.card_data = formData;
-          
           return {
             dataJSON: dataJSON
           }
@@ -154,7 +114,7 @@ export default class EditGridCard extends React.Component {
   }
 
   renderSEO() {
-    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.headline}</h3><p>${this.state.dataJSON.card_data.data.description}</p></blockquote>`
+    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.name}</h3></blockquote>`
     return seo_blockquote;
   }
 

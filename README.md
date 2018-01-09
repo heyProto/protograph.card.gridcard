@@ -1,1 +1,1 @@
-# ProtoGraph.Card.toStory
+# ProtoGraph.Card.toGrid

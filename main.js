@@ -17,13 +17,12 @@ ProtoGraph.Card.toGrid.prototype.getData = function (data) {
   return this.containerInstance.exportData();
 }
 
-ProtoGraph.Card.toGrid.prototype.renderTwoCol= function (data) {
+ProtoGraph.Card.toGrid.prototype.renderCol2= function (data) {
   this.mode = '2_col';
   ReactDOM.render(
     <GridCard
       dataURL={this.options.data_url}
       selector={this.options.selector}
-      domain= {this.options.domain}
       schemaURL={this.options.schema_url}
       optionalConfigURL={this.options.configuration_url}
       optionalConfigSchemaURL={this.options.configuration_schema_url}

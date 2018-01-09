@@ -3,7 +3,7 @@
   <head>
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>toStory</title>
+    <title>toGrid</title>
     <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://dwln9tzsi7g07.cloudfront.net/Assets/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="./src/css/styles.css">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="./lib/css/grid.css">
   </head>
   <body>
-    <div id="link-div"></div>
+    <div id="card"></div><br/>
     <script src="http://cdn.bootcss.com/react/15.4.1/react.js"></script>
     <script src="http://cdn.bootcss.com/react/15.4.1/react-dom.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -22,18 +22,14 @@
     <script src = "./lib/js/calendar.min.js"></script>
     <script src = "./dist/0.0.1/edit-card.min.js"></script>
     <script type="text/javascript">
-    window.ref_link_sources_url = "https://cdn.protograph.pykih.com/Assets/ref_link_sources.json"
-    var x = new ProtoGraph.Card.toStory()
+    var x = new ProtoGraph.Card.toGrid()
     x.init({
-      selector: document.querySelector('#link-div'),
+      selector: document.querySelector('#card'),
       data_url: './dist/0.0.1/sample.json',
       schema_url: './dist/0.0.1/schema.json',
       ui_schema_url:'./dist/0.0.1/ui_schema.json',
-      domain: 'ndianexpress.com',
       configuration_url: './dist/0.0.1/configuration_sample.json', //will come from local folder
       configuration_schema_url: './dist/0.0.1/configuration_schema.json', //will come from local folder
-      houseColors: {house_color: "#ff1f00", inverse_house_color: "#2e9d6f",house_font_color:"#ffffff",
-    inverse_house_font_color:"#ffffff"} 
     });
     // x.renderScreenshot();
     x.renderEdit();

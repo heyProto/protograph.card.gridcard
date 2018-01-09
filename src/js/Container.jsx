@@ -50,15 +50,14 @@ export default class toGridCard extends React.Component {
 
   componentDidMount() {
     if (this.state.fetchingData){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(window.ref_link_sources_url)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema, links) => {
+      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
+        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
           this.setState({
             fetchingData: false,
             dataJSON: {
               card_data: card.data,
               configs: opt_config.data
             },
-            linkDetails:links.data,
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
@@ -67,46 +66,11 @@ export default class toGridCard extends React.Component {
     }
   }
 
-
   exportData() {
     return this.props.selector.getBoundingClientRect();
   }
-  checkURL(url){
-    var re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-    if (!re.test(url)) {
-        return false;
-    }
-    return true;
-  }
-  calculateDateTime() {
-    const data = this.state.dataJSON.card_data;
-    let date_split, date_split_by_hyphen, new_date, month, time;
-      date_split = data.data.date.split("T")[0],
-      date_split_by_hyphen = date_split.split("-"),
-      new_date = new Date(date_split),
-      month = new_date.toLocaleString("en-us", { month: "short" }),
-      time = data.data.date.split("T")[1];
-    let is_am_pm_split = time.split(":"), am_pm;
-    if (is_am_pm_split[0] < "12"){
-      am_pm = "am"
-    } else {
-      am_pm = "pm"
-    }
 
-    return {
-      month: month,
-      am_pm: am_pm,
-      date: date_split_by_hyphen,
-      time: time
-    }
-  }
-
-  handleClick(){
-    console.log(this.state);
-    window.open(this.state.dataJSON.card_data.data.url,'_blank');
-  }
-
-  renderTwoCol(){
+  renderCol2(){
     if(!this.state.schemaJSON){
       return(
         <div>Loading</div>
@@ -127,7 +91,7 @@ export default class toGridCard extends React.Component {
   render() {
     switch(this.props.mode) {
       case '2_col':
-        return this.renderTwoCol();
+        return this.renderCol2();
     }
   }
 }

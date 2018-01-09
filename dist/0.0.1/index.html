@@ -3,7 +3,7 @@
   <head>
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>toStory</title>
+    <title>toGrid</title>
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.protograph.pykih.com/Assets/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="card.min.css">
     <script type="text/javascript">
@@ -59,7 +59,7 @@
     <script src="https://cdn.protograph.pykih.com/lib/protograph-core.min.js"></script>
     <script src="card.min.js"></script>
     <script type="text/javascript">
-    var x = new ProtoGraph.Card.toStory();
+    var x = new ProtoGraph.Card.toGrid();
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [],
@@ -80,7 +80,7 @@
       domain_name = (findGetParameter('domain') || "");
 
     if (siteId && view_cast_id) {
-      _paq.push(['trackEvent', 'toStory', 'page_view', view_cast_id]);
+      _paq.push(['trackEvent', 'toGrid', 'page_view', view_cast_id]);
     }
 
     var ReceiverConsumer = Oasis.Consumer.extend({
