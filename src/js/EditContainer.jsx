@@ -179,6 +179,7 @@ export default class EditGridCard extends React.Component {
     if (this.state.schemaJSON === undefined) {
       return(<div>Loading</div>)
     } else {
+      console.log(this.state);
       return (
         <div className="proto-container">
           <div className="ui grid form-layout">

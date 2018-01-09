@@ -5,6 +5,7 @@ import ta from 'time-ago';
 export default class toGridCard extends React.Component {
   constructor(props) {
     super(props)
+    console.log("Hell");
     let stateVar = {
       fetchingData: true,
       dataJSON: {},
@@ -59,7 +60,13 @@ export default class toGridCard extends React.Component {
         }));
     }
   }
-
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.dataJSON) {
+      this.setState({
+        dataJSON: nextProps.dataJSON
+      });
+    }
+  }
   exportData() {
     return document.getElementById('protograph_div').getBoundingClientRect();
   }
@@ -70,6 +77,7 @@ export default class toGridCard extends React.Component {
         <div>Loading</div>
       )
     }else{
+      console.log(this.state,'.....');
       return(
         <div id="protograph_div" className="col-2-grid-card">
           <div className="col-2-bgimage">
